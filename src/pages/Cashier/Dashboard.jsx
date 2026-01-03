@@ -11,7 +11,7 @@ const CashierDashboard = () => {
         <Sidebar />
         <div className="dashboard-main">
           <h1>Welcome Cashier!</h1>
-          <p>Use the sidebar to navigate.</p>
+          <p>Use the sidebar to navigate to create a sale or view your sales.</p>
         </div>
       </div>
     </div>
