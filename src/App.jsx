@@ -1,13 +1,8 @@
-import React from "react";
-import { AuthProvider } from "./context/AuthContext";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LoginForm from "./components/auth/LoginForm";
-import Dashboard from "./pages/Dashboard";
+import React from 'react';
+import RoutesConfig from './routes';
 
 function App() {
-  return (
-    <div></div>
-  );
+  return <RoutesConfig />;
 }
 
 export default App;
