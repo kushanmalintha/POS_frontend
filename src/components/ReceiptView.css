@@ -1,0 +1,24 @@
+.receipt-view {
+  border: 1px dashed #333;
+  padding: 15px;
+  margin-top: 20px;
+  font-family: monospace;
+  width: 400px;
+  background-color: #f9f9f9;
+}
+
+.receipt-view h2, .receipt-view h3 {
+  margin: 5px 0;
+}
+
+.receipt-view table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.receipt-view th, .receipt-view td {
+  border-bottom: 1px dashed #333;
+  padding: 4px;
+  text-align: left;
+}
