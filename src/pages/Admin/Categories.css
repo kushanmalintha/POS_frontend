@@ -1,0 +1,62 @@
+.categories-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.category-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.category-form input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  flex: 1;
+}
+
+.category-form button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+.category-form button:hover {
+  background-color: #218838;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+table button {
+  margin-right: 5px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+table button:hover {
+  opacity: 0.8;
+}
+
+table button:first-child {
+  background-color: #ffc107;
+  color: #333;
+}
+
+table button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
