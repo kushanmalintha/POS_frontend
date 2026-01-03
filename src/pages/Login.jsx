@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { login as loginApi } from '../api/authApi';
-import { useAuth } from '../hooks/useAuth';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import './Login.css';
 
 const Login = () => {
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -14,19 +11,16 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await loginApi(username, password);
-      login(data.token, data.role, data.username);
-      if (data.role === 'ADMIN') navigate('/admin');
-      else navigate('/cashier');
+      await login(username, password);
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     }
   };
 
   return (
-    <div className="login-container">
-      <h2>POS Login</h2>
-      {error && <div className="error">{error}</div>}
+    <div className="login-page">
+      <h1>Login</h1>
+      {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
