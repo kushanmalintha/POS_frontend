@@ -1,25 +1,34 @@
-.admin-dashboard {
-  padding: 20px;
-  font-family: Arial, sans-serif;
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-.admin-dashboard h1 {
-  margin-bottom: 20px;
+.dashboard-content {
+  display: flex;
+  flex: 1;
+}
+
+.dashboard-main {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
 }
 
 .cards {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+  margin-top: 20px;
 }
 
 .card {
-  flex: 1 1 200px;
+  flex: 1;
+  min-width: 150px;
+  background-color: #f1f1f1;
   padding: 20px;
-  background-color: #f2f2f2;
-  border-radius: 8px;
+  border-radius: 6px;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .card h2 {
@@ -27,6 +36,6 @@
 }
 
 .card p {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
 }

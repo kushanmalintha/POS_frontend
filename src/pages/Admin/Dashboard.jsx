@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import Navbar from '../../components/Navbar';
+import Sidebar from '../../components/Sidebar';
 import { getCategories } from '../../api/categoryApi';
 import { getProducts } from '../../api/productApi';
 import { getAllUsers } from '../../api/userApi';
 import { getAllSales } from '../../api/saleApi';
 import './Dashboard.css';
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
@@ -19,28 +21,34 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
-      <div className="cards">
-        <div className="card">
-          <h2>Users</h2>
-          <p>{users.length}</p>
-        </div>
-        <div className="card">
-          <h2>Categories</h2>
-          <p>{categories.length}</p>
-        </div>
-        <div className="card">
-          <h2>Products</h2>
-          <p>{products.length}</p>
-        </div>
-        <div className="card">
-          <h2>Sales</h2>
-          <p>{sales.length}</p>
+    <div className="dashboard-wrapper">
+      <Navbar />
+      <div className="dashboard-content">
+        <Sidebar />
+        <div className="dashboard-main">
+          <h1>Admin Dashboard</h1>
+          <div className="cards">
+            <div className="card">
+              <h2>Users</h2>
+              <p>{users.length}</p>
+            </div>
+            <div className="card">
+              <h2>Categories</h2>
+              <p>{categories.length}</p>
+            </div>
+            <div className="card">
+              <h2>Products</h2>
+              <p>{products.length}</p>
+            </div>
+            <div className="card">
+              <h2>Sales</h2>
+              <p>{sales.length}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

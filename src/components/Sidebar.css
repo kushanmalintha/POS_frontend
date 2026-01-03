@@ -1,0 +1,23 @@
+.sidebar {
+  width: 200px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  height: calc(100vh - 50px); /* Adjust based on navbar height */
+}
+
+.sidebar ul {
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar a {
+  color: #333;
+  font-weight: bold;
+}
+
+.sidebar a.active {
+  color: #007bff;
+}
