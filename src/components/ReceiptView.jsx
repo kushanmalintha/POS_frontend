@@ -4,31 +4,52 @@ import './ReceiptView.css';
 const ReceiptView = ({ receipt }) => {
   if (!receipt) return null;
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="receipt-view">
-      <h2>{receipt.shop.name}</h2>
-      <p>{receipt.shop.address} | {receipt.shop.phone}</p>
-      <hr/>
-      <p>Invoice: {receipt.invoiceNumber}</p>
-      <p>Date: {new Date(receipt.dateTime).toLocaleString()}</p>
-      <p>Cashier: {receipt.cashier}</p>
-      <table>
-        <thead>
-          <tr><th>Name</th><th>Qty</th><th>Unit</th><th>Total</th></tr>
-        </thead>
-        <tbody>
-          {receipt.items.map((i, idx) => (
-            <tr key={idx}>
-              <td>{i.name}</td>
-              <td>{i.qty}</td>
-              <td>${i.unitPrice}</td>
-              <td>${i.total}</td>
+      <div className="receipt-content">
+        <h2>{receipt.shop.name}</h2>
+        <p>{receipt.shop.address}</p>
+        <p>{receipt.shop.phone}</p>
+
+        <hr />
+
+        <p><strong>Invoice:</strong> {receipt.invoiceNumber}</p>
+        <p><strong>Date:</strong> {new Date(receipt.dateTime).toLocaleString()}</p>
+        <p><strong>Cashier:</strong> {receipt.cashier}</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Unit</th>
+              <th>Total</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <h3>Total: ${receipt.totalAmount}</h3>
-      <p>{receipt.footer}</p>
+          </thead>
+          <tbody>
+            {receipt.items.map((item, idx) => (
+              <tr key={idx}>
+                <td>{item.name}</td>
+                <td>{item.qty}</td>
+                <td>{item.unitPrice}</td>
+                <td>{item.total}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <hr />
+        <h3>Total: {receipt.totalAmount}</h3>
+        <p>{receipt.footer}</p>
+      </div>
+
+      <button className="print-btn" onClick={handlePrint}>
+        Print Receipt
+      </button>
     </div>
   );
 };
