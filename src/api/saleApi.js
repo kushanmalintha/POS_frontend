@@ -1,4 +1,4 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance from './axiosInsatance';
 
 // Create a new sale
 export const createSale = (data) => axiosInstance.post('/sales', data);
