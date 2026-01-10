@@ -15,5 +15,5 @@ export const createUser = (data) => {
       role: "CASHIER"
     }
   */
-  return axiosInstance.post('/users/cashier', data);
+  return axiosInstance.post('/users', data);
 };

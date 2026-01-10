@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     const decoded = jwtDecode(token);
     return {
       username: decoded.sub,
-      role: decoded.role.replace('ROLE_', '')
+      role: decoded.role
     };
   });
 
