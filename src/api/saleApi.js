@@ -4,7 +4,7 @@ import axiosInstance from './axiosInsatance';
 export const createSale = (data) => axiosInstance.post('/sales', data);
 
 // Get all sales (for admin)
-export const getAllSales = () => axiosInstance.get('/sales');
+export const getAllSales = () => axiosInstance.get('/sales/get-all');
 
 // Get sales by cashier
 export const getMySales = () => axiosInstance.get('/sales/my-sales');

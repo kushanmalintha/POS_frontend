@@ -17,7 +17,8 @@ const Products = () => {
     name: '',
     price: '',
     stock: '',
-    categoryId: ''
+    categoryId: '',
+    unitType: 'UNIT'
   });
   const [editId, setEditId] = useState(null);
   const [error, setError] = useState('');
@@ -40,35 +41,31 @@ const Products = () => {
     const payload = {
       ...form,
       price: parseFloat(form.price),
-      stock: parseInt(form.stock)
+      stock: parseFloat(form.stock)
     };
 
-    if (editId) {
-      updateProduct(editId, payload)
-        .then(() => {
-          setEditId(null);
-          setForm({ name: '', price: '', stock: '', categoryId: '' });
-          fetchProducts();
-        })
-        .catch(err => {
-          setError(
-            err.response?.data?.message ||
-            'Failed to update product'
-          );
+    const action = editId
+      ? updateProduct(editId, payload)
+      : createProduct(payload);
+
+    action
+      .then(() => {
+        setEditId(null);
+        setForm({
+          name: '',
+          price: '',
+          stock: '',
+          categoryId: '',
+          unitType: 'UNIT'
         });
-    } else {
-      createProduct(payload)
-        .then(() => {
-          setForm({ name: '', price: '', stock: '', categoryId: '' });
-          fetchProducts();
-        })
-        .catch(err => {
-          setError(
-            err.response?.data?.message ||
-            'Failed to create product'
-          );
-        });
-    }
+        fetchProducts();
+      })
+      .catch(err => {
+        setError(
+          err.response?.data?.message ||
+          'Operation failed'
+        );
+      });
   };
 
   const handleEdit = (prod) => {
@@ -77,7 +74,8 @@ const Products = () => {
       name: prod.name,
       price: prod.price,
       stock: prod.stock,
-      categoryId: prod.category.id
+      categoryId: prod.category.id,
+      unitType: prod.unitType
     });
     setError('');
   };
@@ -86,10 +84,7 @@ const Products = () => {
     if (!window.confirm('Are you sure you want to delete this product?')) return;
 
     deleteProduct(id)
-      .then(() => {
-        setError('');
-        fetchProducts();
-      })
+      .then(fetchProducts)
       .catch(err => {
         setError(
           err.response?.data?.message ||
@@ -100,7 +95,13 @@ const Products = () => {
 
   const handleCancel = () => {
     setEditId(null);
-    setForm({ name: '', price: '', stock: '', categoryId: '' });
+    setForm({
+      name: '',
+      price: '',
+      stock: '',
+      categoryId: '',
+      unitType: 'UNIT'
+    });
     setError('');
   };
 
@@ -125,12 +126,7 @@ const Products = () => {
             </div>
           </div>
 
-          {/* ✅ ERROR BANNER */}
-          {error && (
-            <div className="error-banner">
-              {error}
-            </div>
-          )}
+          {error && <div className="error-banner">{error}</div>}
 
           <div className="content-card">
             <div className="card-header">
@@ -172,7 +168,22 @@ const Products = () => {
 
               <div className="form-row">
                 <div className="form-group">
-                  <label>Price (Rs.)</label>
+                  <label>Unit Type</label>
+                  <select
+                    value={form.unitType}
+                    onChange={e =>
+                      setForm({ ...form, unitType: e.target.value })
+                    }
+                  >
+                    <option value="UNIT">Per Unit</option>
+                    <option value="KG">Per Kilogram</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>
+                    Price (Rs / {form.unitType === 'KG' ? 'kg' : 'unit'})
+                  </label>
                   <input
                     type="number"
                     step="0.01"
@@ -183,11 +194,16 @@ const Products = () => {
                     required
                   />
                 </div>
+              </div>
 
+              <div className="form-row">
                 <div className="form-group">
-                  <label>Stock Quantity</label>
+                  <label>
+                    Stock ({form.unitType === 'KG' ? 'Kg' : 'Units'})
+                  </label>
                   <input
                     type="number"
+                    step={form.unitType === 'KG' ? '0.01' : '1'}
                     value={form.stock}
                     onChange={e =>
                       setForm({ ...form, stock: e.target.value })
@@ -228,6 +244,7 @@ const Products = () => {
                     <th>Product</th>
                     <th>Price</th>
                     <th>Stock</th>
+                    <th>Unit</th>
                     <th>Category</th>
                     <th>Actions</th>
                   </tr>
@@ -235,7 +252,7 @@ const Products = () => {
                 <tbody>
                   {products.length === 0 ? (
                     <tr>
-                      <td colSpan="6" className="empty-state">
+                      <td colSpan="7" className="empty-state">
                         No products found
                       </td>
                     </tr>
@@ -244,8 +261,14 @@ const Products = () => {
                       <tr key={p.id}>
                         <td>{p.id}</td>
                         <td>{p.name}</td>
-                        <td>Rs. {parseFloat(p.price).toFixed(2)}</td>
-                        <td>{p.stock}</td>
+                        <td>
+                          Rs. {parseFloat(p.price).toFixed(2)} /
+                          {p.unitType === 'KG' ? 'kg' : 'unit'}
+                        </td>
+                        <td>
+                          {p.stock} {p.unitType === 'KG' ? 'kg' : 'units'}
+                        </td>
+                        <td>{p.unitType}</td>
                         <td>{p.category.name}</td>
                         <td>
                           <button
